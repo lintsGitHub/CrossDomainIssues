@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>JSONP</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<button onclick="ss()">原理请求</button>
+			<button onclick="fasong()">jQuery请求</button>
+		</div>
+	</body>
+	<script>
+		// 跨域问题
+		// URL : HTTP, IP , 端口
+		// 如果客户端与服务器的URL其中有一个是不一样可以视为不同源,这里就产生了一个跨域的问题
+		// 介绍一下jsonp
+		// 这个东西就使用了script的一个特点(也可以说一个漏洞)
+		// 使用script 就可以访问不同源的东西,然后将服务端的数据通过脚本的方式返回(可以通过函数,变量,数组....)
+		// 这就是jsonp的实现原理
+		const url = 'http://localhost:8080/hello';
+		function loadScript(url) {
+			const script = document.createElement('script');
+			script.src = url;
+			document.body.appendChild(script);
+		}
+		
+		function hello(a) {
+			console.log(a);
+		}
+		
+		function ss() {
+			loadScript(url);
+		}
+		
+		const url2 = 'http://localhost:8080/hello2';
+		// 同时jQuery也提供了这样的ajax方法给我们
+		function fasong(){
+			$.ajax({
+				method : 'get',
+				url :  url2,
+				dataType : 'jsonp', //设置数据类型是jsonp
+				jsonpCallback : 'hello', //返回函数名
+				jsonp : 'seyhello' //后台接收参数名
+			}).done((data) => {
+				console.log(data);
+			})
+		}
+		
+	</script>
+</html>
