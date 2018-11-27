@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>CORS</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	</head>
+	<body>
+		<button onclick="callOtherDomain()">hello简单请求点击</button><br>
+		<button onclick="callOtherDomain2()">hi简单请求点击</button><br>
+		<button onclick="callOtherDomain3()">servlet简单请求点击</button>
+	</body>
+	<script>
+			// 简单使用SpringMVC注解来进行跨域设置
+			var url = 'http://localhost:8080/hello';
+			var url2 = 'http://localhost:8080/hi';
+			function callOtherDomain() {
+				$.ajax({
+					method : 'get',
+					url : url
+				}).done((data)=>{
+					console.log(data)
+				})
+			}
+			function callOtherDomain2() {
+				$.ajax({
+					method : 'get',
+					url : url2
+				}).done((data)=>{
+					console.log(data)
+				})
+			}
+			// 通过servlet来进行跨域
+			var url3 = 'http://localhost:8080/servlet'
+			
+			function callOtherDomain3() {
+				$.ajax({
+					method : 'get',
+					url : url3
+				}).done((data)=>{
+					console.log(data)
+				})
+			}
+			
+	</script>
+</html>
